@@ -1,0 +1,5 @@
+discord.py[voice]
+python-dotenv
+google-api-python-client
+gTTS
+yt-dlp
