@@ -47,7 +47,7 @@ async def handle_tts(message):
             await message.channel.send("음성 채널에 먼저 접속해주세요.")
             return
 
-    language = guild_languages.get(str(message.guild.id), 'en')  # 기본값을 영어로 설정
+    language = guild_languages.get(str(message.guild.id), 'ko')  # 기본값을 영어로 설정
     tts_file = f"tts_audio_{message.guild.id}.mp3"
 
     print(f"파일 저장 경로: {os.path.abspath(tts_file)}")

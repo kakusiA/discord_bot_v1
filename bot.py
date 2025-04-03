@@ -37,30 +37,27 @@ intents.voice_states = True
 intents.members = True
 
 bot = commands.Bot(command_prefix='/', intents=intents)
-#TTS봇 나가기
-@bot.event
-async def on_voice_state_update(member, before, after):
-    """
-    음성 상태 변경 이벤트 처리
-    """
-    # 봇 자신인지 확인
-    if member.bot and after.channel is None:
-        return  # 봇이 음성 채널에서 나간 경우는 무시
 
-    # 음성 채널에 남은 멤버 확인
-    if before.channel and before.channel != after.channel:
-        voice_channel = before.channel
-        connected_bot = voice_channel.guild.voice_client
-
-        # 봇이 음성 채널에 있고, 혼자 남아 있다면 나가기
-        if connected_bot and len(voice_channel.members) == 1:
-            await connected_bot.disconnect()
-            voice_connected_guilds.discard(voice_channel.guild.id)
-            print(f"Disconnected from {voice_channel.name} in {voice_channel.guild.name} due to being alone.")
 
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
+
+@bot.event
+async def on_message(message):
+    if message.author == bot.user:
+        return
+
+    # 명령어를 처리
+    await bot.process_commands(message)
+
+    # 음성 채널 연결 상태 확인 및 TTS 처리
+    if (
+        message.channel.name == 'tts'  # TTS 채널 확인
+        and not message.content.startswith('/')  # 명령어 제외
+        and message.guild.id in voice_connected_guilds  # 음성 채널에 연결된 상태인지 확인
+    ):
+        await handle_tts(message)
 
 @bot.command()
 async def y(ctx, *, query=None):
@@ -84,6 +81,8 @@ async def set_language(ctx, lang_code: str):
 # 음성 채널 연결 상태 저장
 voice_connected_guilds = set()
 
+
+#보이스챗
 @bot.command()
 async def vc(ctx):
     if ctx.author.voice is None:
@@ -117,20 +116,26 @@ async def stop(ctx):
     else:
         await ctx.send("현재 재생 중인 TTS가 없습니다.")
 
+#TTS봇 나가기
 @bot.event
-async def on_message(message):
-    if message.author == bot.user:
-        return
+async def on_voice_state_update(member, before, after):
+    """
+    음성 상태 변경 이벤트 처리
+    """
+    # 봇 자신인지 확인
+    if member.bot and after.channel is None:
+        return  # 봇이 음성 채널에서 나간 경우는 무시
 
-    # 명령어를 처리
-    await bot.process_commands(message)
+    # 음성 채널에 남은 멤버 확인
+    if before.channel and before.channel != after.channel:
+        voice_channel = before.channel
+        connected_bot = voice_channel.guild.voice_client
 
-    # 음성 채널 연결 상태 확인 및 TTS 처리
-    if (
-        message.channel.name == 'tts'  # TTS 채널 확인
-        and not message.content.startswith('/')  # 명령어 제외
-        and message.guild.id in voice_connected_guilds  # 음성 채널에 연결된 상태인지 확인
-    ):
-        await handle_tts(message)
+        # 봇이 음성 채널에 있고, 혼자 남아 있다면 나가기
+        if connected_bot and len(voice_channel.members) == 1:
+            await connected_bot.disconnect()
+            voice_connected_guilds.discard(voice_channel.guild.id)
+            print(f"Disconnected from {voice_channel.name} in {voice_channel.guild.name} due to being alone.")
+
 
 bot.run(DISCORD_TOKEN)
