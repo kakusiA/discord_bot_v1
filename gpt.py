@@ -93,7 +93,7 @@ def send_independent_query(query, ctx=None):
     """
     system_message = {
         "role": "system",
-        "content": "너는 GPT야"
+        "content": "정확한 정보를 나에게줘 틀린정보를 주면안되 모르면 모른다고해"
     }
     messages = [
         system_message,
