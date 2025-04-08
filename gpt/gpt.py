@@ -13,7 +13,7 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=openai_api_key)
 
 # 대화 기록을 저장할 파일 경로
-CONVERSATIONS_FILE = "Json_data/conversations.json"
+CONVERSATIONS_FILE = "../Json_data/conversations.json"
 
 def load_conversations():
     """대화 기록을 파일에서 불러옵니다."""

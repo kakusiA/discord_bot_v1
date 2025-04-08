@@ -1,4 +1,5 @@
 .env
 Json_data/guild_languages.json
 libopus-0
-123.py
+fine_tuning
+fine_tuning/123.py

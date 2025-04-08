@@ -5,10 +5,10 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 # 모듈 임포트
-from gpt import summarize_meeting_content, send_independent_query
+from gpt.gpt import summarize_meeting_content, send_independent_query
 from save import save_conversation_data_json
 from youtube_module import search_youtube
-from gpt_module import handle_gpt_request, clear_conversations, get_conversation_history
+from gpt.gpt_module import handle_gpt_request, clear_conversations, get_conversation_history
 from tts_module import handle_tts, set_tts_language
 
 # Opus 라이브러리 로드 (OS별 경로 설정)
@@ -88,7 +88,7 @@ async def gpt(ctx, *, query=None):
 
 # 독립적 GPT 질문 명령어: 대화 기록 없이 개별적으로 GPT에 질문하여 응답을 받습니다.
 @bot.command()
-async def gptCl(ctx, *, query=None):
+async def gptcl(ctx, *, query=None):
     if query is None:
         await ctx.send("질문을 입력해 주세요.")
         return
