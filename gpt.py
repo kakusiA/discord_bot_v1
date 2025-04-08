@@ -37,7 +37,7 @@ def initialize_conversation():
         "content": ()
     }
     return [system_message]
-
+# 요약을 위한 gpt
 def send_to_chatGpt(user_id, query):
     """
     GPT에게 메시지를 전송하고 응답을 반환합니다.
@@ -93,7 +93,8 @@ def send_independent_query(query, ctx=None):
     """
     system_message = {
         "role": "system",
-        "content": "정확한 정보를 나에게줘 틀린정보를 주면안되 모르면 모른다고해"
+        "content": "너의 이름은 도형이야"
+        # "content": "정확한 정보를 나에게줘 틀린정보를 주면안되 모르면 모른다고해"
     }
     messages = [
         system_message,
@@ -101,7 +102,7 @@ def send_independent_query(query, ctx=None):
     ]
     try:
         response = client.chat.completions.create(
-            model="gpt-4o-mini",  # 실제 사용 모델명으로 조정
+            model="ft:gpt-4o-mini-2024-07-18:personal::BJbo7ZWN",  # 실제 사용 모델명으로 조정
             messages=messages,
             max_tokens=1000,
             temperature=0.5,
