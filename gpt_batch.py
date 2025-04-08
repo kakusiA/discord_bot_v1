@@ -17,7 +17,7 @@ client = OpenAI(api_key=openai_api_key)
 celery_app = Celery('gpt_batch', broker='redis://localhost:6379/0')
 
 # 대화 기록을 저장할 파일 경로
-CONVERSATIONS_FILE = "conversations.json"
+CONVERSATIONS_FILE = "json_data/conversations.json"
 
 def load_conversations():
     """대화 기록을 파일에서 불러옵니다."""
@@ -74,7 +74,7 @@ def send_to_chatGpt(user_id, query):
         return "죄송합니다. 현재 서버에 문제가 발생했습니다."
 
 @celery_app.task
-def batch_summarize_meeting(user_id, meeting_file="회의_대화내용.json"):
+def batch_summarize_meeting(user_id, meeting_file="json_data/meeting_data.json"):
     """
     NDJSON 형식의 회의 대화 내용을 읽어 하나의 텍스트로 결합한 후,
     ChatGPT에게 요약 요청을 보내고 그 결과를 반환하는 배치 작업입니다.

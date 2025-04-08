@@ -5,7 +5,7 @@ from gtts import gTTS, lang as gtts_lang
 import platform
 import discord
 
-LANGUAGES_FILE = 'guild_languages.json'
+LANGUAGES_FILE = 'json_data/guild_languages.json'
 
 # 서버별 TTS 언어 설정을 저장/불러오기
 if os.path.exists(LANGUAGES_FILE):

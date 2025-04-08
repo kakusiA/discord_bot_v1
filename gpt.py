@@ -13,7 +13,7 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=openai_api_key)
 
 # 대화 기록을 저장할 파일 경로
-CONVERSATIONS_FILE = "conversations.json"
+CONVERSATIONS_FILE = "Json_data/conversations.json"
 
 def load_conversations():
     """대화 기록을 파일에서 불러옵니다."""
@@ -114,7 +114,7 @@ def send_independent_query(query, ctx=None):
         return "죄송합니다. 현재 서버에 문제가 발생했습니다."
 
 
-def summarize_meeting_content(user_id, meeting_file="회의_대화내용.json"):
+def summarize_meeting_content(user_id, meeting_file="json_data/meeting_data.json"):
     """
     NDJSON 형식으로 저장된 회의 대화 내용을 읽어 하나의 텍스트로 결합하고,
     ChatGPT에게 요약 요청을 보낸 후 요약 결과를 반환합니다.

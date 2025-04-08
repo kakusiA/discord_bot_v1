@@ -1,7 +1,7 @@
 import json
 
 input_file = "fine_tuning_data.json"  # JSONL 파일 경로
-output_file = "../fine_tuning_data.jsonl"
+output_file = "../Json_data/fine_tuning_data.jsonl"
 
 data = []
 with open(input_file, "r", encoding="utf-8") as infile:

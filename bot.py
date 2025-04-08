@@ -1,6 +1,4 @@
 import os
-import json
-import asyncio
 import platform
 import discord
 from discord.ext import commands
@@ -11,7 +9,7 @@ from gpt import summarize_meeting_content, send_independent_query
 from save import save_conversation_data_json
 from youtube_module import search_youtube
 from gpt_module import handle_gpt_request, clear_conversations, get_conversation_history
-from tts_module import handle_tts, set_tts_language, guild_languages
+from tts_module import handle_tts, set_tts_language
 
 # Opus 라이브러리 로드 (OS별 경로 설정)
 OPUS_LIBRARY_PATH = {
@@ -115,7 +113,7 @@ async def clearChat(ctx):
     new_channel = await ctx.channel.clone()
 
     # 회의 대화내용 파일 초기화 (파일 내용을 비웁니다)
-    with open("회의_대화내용.json", "w", encoding="utf-8") as f:
+    with open("json_data/meeting_data.json", "w", encoding="utf-8") as f:
         f.write("")
 
     # 기존 채널 삭제 후 새 채널에 메시지 전송
