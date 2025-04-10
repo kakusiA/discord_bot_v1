@@ -1,5 +1,5 @@
 import asyncio
-from gpt import send_to_chatGpt, load_conversations, save_conversations, initialize_conversation
+from .gpt import send_to_chatGpt, load_conversations, save_conversations, initialize_conversation
 
 async def handle_gpt_request(ctx, query):
     if not query:
